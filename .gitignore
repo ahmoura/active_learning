@@ -1,0 +1,13 @@
+# virtual env files
+
+# virtualenv act_learn
+# pip install ipython jupyter pymfe modAL ...
+
+act_learn/bin/*
+act_learn/etc/*
+act_learn/lib/*
+act_learn/pyvenv.cfg
+act_learn/share/*
+act_learn/data/.ipynb_checkpoints/*
+
+temp/*
