@@ -1,9 +1,14 @@
-act_learn/bin/*
-act_learn/etc/*
-act_learn/lib/*
-act_learn/pyvenv.cfg
-act_learn/share/*
-act_learn/data/.ipynb_checkpoints/*
-act_learn/data/datasets/*
+# ignoring virtual env files
+bin/*
+etc/*
+lib/*
+pyvenv.cfg
+share/*
 
-temp/*
+# ignoring .pdf documents
+references/*
+
+# ignoring datasets and checkpoints
+data/.ipynb_checkpoints/*
+data/datasets/*
+
