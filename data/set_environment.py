@@ -4,7 +4,7 @@ TEST = 1
 cost = 10
 n_splits = 5 # number of bags cv
 total_performance_history = []
-k = 3 #parameter to knn classifier
+k = 5 #parameter to knn classifier
 
 strategies = {"Uncertain Sampling": 0, "Random Sampling": 1, "Query by Committee": 2, "Expected Error Reduction": 3, "Expected Error Reduction": 4}
 
