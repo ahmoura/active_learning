@@ -22,7 +22,7 @@ Algumas das estratégias implementadas são:
 ``` bash
 virtualenv act_learn
 source bin/activate
-pip install ipython jupyter modAL ...
+pip install ipython jupyter modAL sklearn copy openml os matplotlib seaborn timeit ...
 ```
 
 As estruturas do framework seguem o seguinte pipeline:
