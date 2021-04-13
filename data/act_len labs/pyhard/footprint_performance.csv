@@ -1,0 +1,8 @@
+Row,Area_Good_Normalized,Density_Good_Normalized,Purity_Good,Area_Best_Normalized,Density_Best_Normalized,Purity_Best
+bagging,1.0,1.0,1.0,0.0,0.0,0
+gradient_boosting,1.0,1.0,1.0,0.0,0.0,0
+logistic_regression,1.0,1.0,1.0,0.0,0.0,0
+mlp,1.0,1.0,1.0,0.0,0.0,0
+random_forest,1.0,1.0,1.0,0.0,0.0,0
+svc_linear,1.0,1.0,1.0,0.0,0.0,0
+svc_rbf,1.0,1.0,1.0,0.0,0.0,0
