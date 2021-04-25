@@ -5,16 +5,16 @@ datafile: data.csv
 feat_select: true
 hpo_evals: 20
 hpo_timeout: 90
-hyper_param_optm: true
+hyper_param_optm: false
 ih_purity: 0.55
 ih_threshold: 0.4
 isa_engine: python
 max_n_features: 10
 measures_list:
-- N2
+- LSC
 method: mrmr
 metric: logloss
-n_folds: 5
+n_folds: 2
 n_iter: 1
 parameters:
   bagging:

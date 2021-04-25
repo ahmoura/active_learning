@@ -26,7 +26,7 @@ isa_engine: python
 
 # number of cross-validation folds to evaluate algorithm performance
 # suggestion: using 5 folds when hyper parameter optimization is enabled, and 10 otherwise
-n_folds: 5
+n_folds: 2
 # number of times the cross-validation is repeated. Instance metric is the mean over the iterations
 # suggestion: using 1 or 2 iters when hyper parameter optimization is enabled, and 10 otherwise
 n_iter: 1
@@ -48,7 +48,7 @@ var_filter: True
 var_threshold: 0
 
 # Hyper parameter optimization (HPO)
-hyper_param_optm: True
+hyper_param_optm: False
 # Maximum number of evaluations
 hpo_evals: 20
 # Timeout for each fold (in seconds)
@@ -80,28 +80,28 @@ measures_list:
 #     - TD_U
 #     - CL
 #     - CLD
-    # - MV
-    # - CB
+#     - MV
+#     - CB
 #     - N1
 #     - N2
-    - LSC
+     - LSC
 #     - LSR
 #     - Harmfulness
 #     - Usefulness
-    # - F2
-    # - F3
+#     - F2
+#     - F3
 
 # which algorithms (classifiers) to use
 algo_list:
 #     - svc_linear
 #     - svc_rbf
-    - random_forest
+     - random_forest
 #     - gradient_boosting
 #     - bagging
-    # - gaussian_nb
+#     - gaussian_nb
 #     - logistic_regression
 #     - mlp
-    # - dummy
+#     - dummy
 
 # fixed parameters for the classifiers
 # parameter 'random_state' controls the reproducibility
