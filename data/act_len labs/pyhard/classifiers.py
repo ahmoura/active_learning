@@ -1,3 +1,5 @@
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
-#TO DO mais classificadores
+from sklearn import tree
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC

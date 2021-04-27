@@ -18,4 +18,4 @@ from timeit import default_timer as timer
 
 from scipy.io import arff
 
-from tqdm.tqdm import tqdm, trange
+from tqdm import tqdm, trange
