@@ -11,7 +11,8 @@ ih_threshold: 0.4
 isa_engine: python
 max_n_features: 10
 measures_list:
-- F3
+- Harmfulness
+- Usefulness
 method: mrmr
 metric: logloss
 n_folds: 2

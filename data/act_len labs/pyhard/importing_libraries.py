@@ -10,6 +10,7 @@ from copy import deepcopy
 
 from sklearn.model_selection import StratifiedShuffleSplit, ShuffleSplit, train_test_split
 from sklearn import preprocessing
+from sklearn import metrics
 
 from modAL.models import ActiveLearner
 from modAL.uncertainty import uncertainty_sampling
