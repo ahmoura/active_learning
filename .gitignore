@@ -12,3 +12,5 @@ references/*
 data/.ipynb_checkpoints/*
 data/act_len\ labs/.ipynb_checkpoints/*
 data/datasets/*
+
+.ipynb_checkpoints/*
