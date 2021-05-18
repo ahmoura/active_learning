@@ -110,10 +110,11 @@ def which_arff_dataset(dataset, n_splits = 5):
     X_raw = data[data.columns[:-1]].to_numpy()
     y_raw = data[data.columns[-1]].to_numpy()
     
-    lex = preprocessing.OrdinalEncoder()
+    lex = preprocessing.OneHotEncoder(handle_unknown='ignore', sparse = False)
     lex.fit(X_raw)
     X_raw = lex.transform(X_raw)
-        
+    
+    # pq o y sem o enconding não funciona? 
     ley = preprocessing.LabelEncoder()
     ley.fit(y_raw)
     y_raw = ley.transform(y_raw)

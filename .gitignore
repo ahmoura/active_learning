@@ -12,5 +12,6 @@ references/*
 data/.ipynb_checkpoints/*
 data/act_len\ labs/.ipynb_checkpoints/*
 data/datasets/*
+data/act_len\ labs/pyhard/datasets/*
 
 .ipynb_checkpoints/*
