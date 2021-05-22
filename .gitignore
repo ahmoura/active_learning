@@ -15,3 +15,8 @@ data/datasets/*
 data/act_len\ labs/pyhard/datasets/*
 
 .ipynb_checkpoints/*
+
+ALIH/.idea
+ALIH/output
+ALIH/venv
+ALIH/__pycache__
