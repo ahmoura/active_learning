@@ -12,3 +12,14 @@ references/*
 data/.ipynb_checkpoints/*
 data/act_len\ labs/.ipynb_checkpoints/*
 data/datasets/*
+data/act_len\ labs/pyhard/datasets/*
+
+.ipynb_checkpoints/*
+
+ALIH/.idea
+ALIH/output
+ALIH/venv
+ALIH/__pycache__
+
+ALIH/strategies/pyHard/__pycache__
+ALIH/environment/__pycache__
