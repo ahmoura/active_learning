@@ -20,3 +20,6 @@ ALIH/.idea
 ALIH/output
 ALIH/venv
 ALIH/__pycache__
+
+ALIH/strategies/pyHard/__pycache__
+ALIH/environment/__pycache__

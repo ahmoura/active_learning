@@ -12,13 +12,12 @@ def which_pyhard_measure(measure='LSC'):
             configs_list['measures_list'] = ['Harmfulness']
         elif measure == 'Usefulness':
             configs_list['measures_list'] = ['Usefulness']
-        elif measure == 'U+H':
+        elif measure == 'U_H':
             configs_list['measures_list'] = ['Harmfulness', 'Usefulness']
         elif measure == 'N2':
             configs_list['measures_list'] = ['N2']
         elif measure == 'F3':
             configs_list['measures_list'] = ['F3']
 
-    # precisamos colocar o config no Path('.') / 'strategies' / 'pyHard' / 'pyhard_files' / 'config.yaml'
-    with open(Path('.') / 'config.yaml', 'w') as file:
+    with open(Path('.') / 'strategies' / 'pyHard' / 'pyhard_files' / 'config.yaml', 'w') as file:
         yaml.dump(configs_list, file)

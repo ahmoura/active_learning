@@ -8,7 +8,6 @@ from modAL.models import ActiveLearner
 from environment.which_classifier import which_classifier
 from modAL.uncertainty import uncertainty_sampling
 from environment.compute_f1 import compute_f1
-from environment.which_pyhard_measure import which_pyhard_measure
 import pandas as pd
 from pathlib import Path
 
@@ -45,17 +44,15 @@ def pyhard_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cos
 
     # X_train, X_test, y_train, y_test = train_test_split(X_raw, y_raw, train_size=0.03)
 
-    idx = np.random.choice(range(len(idx_data[idx_bag][TRAIN])), size=init_size, replace=False)
-    X_train, y_train = X_raw[idx_data[idx_bag][TRAIN][idx]], y_raw[idx_data[idx_bag][TRAIN][idx]]
+    #idx = np.random.choice(range(len(idx_data[idx_bag][TRAIN])), size=init_size, replace=False)
+    #X_train, y_train = X_raw[idx_data[idx_bag][TRAIN][idx]], y_raw[idx_data[idx_bag][TRAIN][idx]]
 
     X_rawAndY_raw = np.column_stack([X_raw[idx_data[idx_bag][TRAIN]], y_raw[idx_data[idx_bag][TRAIN]]])
-    np.savetxt("data.csv", X_rawAndY_raw, fmt='%i', delimiter=",")
+    np.savetxt(str(Path('.') / 'strategies' / 'pyHard' / 'pyhard_files' / strategy['measure'] / 'data.csv'), X_rawAndY_raw, fmt='%i', delimiter=",")
 
-    which_pyhard_measure(strategy['measure'])
+    os.system('pyhard --no-isa -c' + str(Path('.') / 'strategies' / 'pyHard' / 'pyhard_files' / strategy['measure'] / 'config.yaml'))
 
-    os.system('pyhard --no-isa')
-
-    df = pd.read_csv(Path('.') / 'strategies' / 'pyHard' / 'pyhard_files' / 'metadata.csv')
+    df = pd.read_csv(Path('.') / 'strategies' / 'pyHard' / 'pyhard_files' / strategy['measure'] /'metadata.csv')
 
     idx = list(df.sort_values(by=strategy['sortby'], ascending=strategy['ascending'])['instances'][:cost])
 
