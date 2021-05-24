@@ -18,12 +18,20 @@ def modal_thread(ds, X_raw, y_raw, idx_data, dataset_name, classifier, idx_bag, 
         "Passou: " + str(ds[:-5]) + " " + str(classifier) + " " + str(idx_bag + 1) + "/" + str(n_splits) + " " + key)
     barrier.wait()
 
+
 def run_modal(datasets, n_splits = 5, init_size = 5, cost = 10):
 
     for ds in tqdm(datasets,  desc ="Dataset"):
         X_raw, y_raw, idx_data, dataset_name = which_arff_dataset(ds, n_splits)
         for classifier in classifiers:
+            thr_list = []
             for idx_bag in range(n_splits):
                 #for key, value in modal_strategies.items():
-                    Thread(target=modal_thread, args=(ds, X_raw, y_raw, idx_data, dataset_name, classifier, idx_bag, n_splits, "Uncertain Sampling", "uncertain_sampling", init_size, cost,)).start()
+                thr_list.append(Thread(target=modal_thread, args=(ds, X_raw, y_raw, idx_data, dataset_name, classifier, idx_bag, n_splits, "Uncertain Sampling", "uncertain_sampling", init_size, cost,)))
+            for thr in thr_list:
+                thr.start()
             barrier.wait()
+            print('THR LEN>' + str(len(thr_list)))
+            for thr in thr_list:
+                thr.join()
+                print(thr.is_alive())
