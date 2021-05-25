@@ -31,7 +31,5 @@ def run_modal(datasets, n_splits = 5, init_size = 5, cost = 10):
             for thr in thr_list:
                 thr.start()
             barrier.wait()
-            print('THR LEN>' + str(len(thr_list)))
             for thr in thr_list:
                 thr.join()
-                print(thr.is_alive())

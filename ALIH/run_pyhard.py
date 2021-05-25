@@ -28,8 +28,13 @@ def run_pyhard(datasets, n_splits = 5, init_size = 5, cost = 10):
     for ds in tqdm(datasets,  desc ="Dataset"):
         X_raw, y_raw, idx_data, dataset_name = which_arff_dataset(ds)
         for classifier in classifiers:
+            thr_list = []
             # para cada i em idx_bag ("n_splits") (1 a 5)
             for idx_bag in range(n_splits):
                 for ph_strategy in pyhard_strategies_names:
-                    Thread(target=pyhard_thread, args=(ds, X_raw, y_raw, idx_data, dataset_name, classifier, idx_bag, n_splits, ph_strategy, init_size, cost,)).start()
-                barrier.wait()
+                    thr_list.append(Thread(target=pyhard_thread, args=(ds, X_raw, y_raw, idx_data, dataset_name, classifier, idx_bag, n_splits, ph_strategy, init_size, cost,)))
+            for thr in thr_list:
+                thr.start()
+            barrier.wait()
+            for thr in thr_list:
+                thr.join()
