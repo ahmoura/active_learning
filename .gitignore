@@ -21,21 +21,29 @@ ALIH/output
 ALIH/venv
 ALIH/__pycache__
 
-ALIH/strategies/pyHard/__pycache__
-ALIH/environment/__pycache__
+ALIH/strategies/pyHard/__pycache__/
+ALIH/environment/__pycache__/
 
 ALIH/strategies/pyHard/pyhard_files/F3/data.csv
 ALIH/strategies/pyHard/pyhard_files/F3/ih.csv
 ALIH/strategies/pyHard/pyhard_files/F3/metadata.csv
+ALIH/strategies/pyHard/pyhard_files/H_U/data.csv
 ALIH/strategies/pyHard/pyhard_files/H_U/ih.csv
 ALIH/strategies/pyHard/pyhard_files/H_U/metadata.csv
+ALIH/strategies/pyHard/pyhard_files/Harmfulness/data.csv
 ALIH/strategies/pyHard/pyhard_files/Harmfulness/ih.csv
 ALIH/strategies/pyHard/pyhard_files/Harmfulness/metadata.csv
 ALIH/strategies/pyHard/pyhard_files/LSC/data.csv
 ALIH/strategies/pyHard/pyhard_files/LSC/ih.csv
 ALIH/strategies/pyHard/pyhard_files/LSC/metadata.csv
+ALIH/strategies/pyHard/pyhard_files/N2/data.csv
 ALIH/strategies/pyHard/pyhard_files/N2/ih.csv
 ALIH/strategies/pyHard/pyhard_files/N2/metadata.csv
 ALIH/strategies/pyHard/pyhard_files/Usefulness/data.csv
 ALIH/strategies/pyHard/pyhard_files/Usefulness/ih.csv
 ALIH/strategies/pyHard/pyhard_files/Usefulness/metadata.csv
+ALIH/visualization/.ipynb_checkpoints/*
+
+ALIH/environment/__pycache__/config.cpython-39.pyc 
+ALIH/strategies/modal_strategies/__pycache__/modal_framework.cpython-39.pyc 
+ALIH/strategies/pyHard/__pycache__/pyhard_framework.cpython-39.pyc
