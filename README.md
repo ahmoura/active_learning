@@ -6,7 +6,7 @@ Este notebook visa comparar as diversas estratégias de aprendizado ativo encont
 
     Obs.: Todas as estratégias foram comparadas utilizando apenas classificadores.
 
-Algumas das estratégias implementadas são:
+Algumas das estratégias da literatura básica [Settles](http://www.active-learning.net/) implementadas são:
 
 - Amostra por incerteza
 - Amostragem aleatória
@@ -15,14 +15,30 @@ Algumas das estratégias implementadas são:
 - Redução do erro esperado
 - Mudança esperada do modelo
 
+As estratégias baseadas em dificuldade de instância implementadas são:
+
+- Harmfulness
+- Usefulness
+- Harmfulness and usefulness
+- LSC - Local Set Cardinality
+- N2 - Ratio of Intra/Extra Class Nearest Neighbor Distance
+- F3 - Maximum Individual Feature Efficiency 
+
+---
+
 ## How to use
 
-### virtual env files
+### Requirements:
+
+- **Python** >= 3.9
+
+### Virtual env files
 
 ``` bash
-virtualenv act_learn
+cd ALIH
+virtualenv venv
 source bin/activate
-pip install ipython jupyter modAL sklearn copy openml os matplotlib seaborn timeit ...
+python -m pip install -r requirements.txt
 ```
 
 As estruturas do framework seguem o seguinte pipeline:
