@@ -44,6 +44,12 @@ ALIH/strategies/pyHard/pyhard_files/Usefulness/ih.csv
 ALIH/strategies/pyHard/pyhard_files/Usefulness/metadata.csv
 ALIH/visualization/.ipynb_checkpoints/*
 
+ALIH/strategies/modal_strategies/__pycache__/
+ALIH/strategies/modal_strategies/__pycache__/exp_error_reduction.cpython-39.pyc
+ALIH/strategies/modal_strategies/__pycache__/exp_model_change.cpython-39.pyc
+ALIH/strategies/modal_strategies/__pycache__/query_by_committee.cpython-39.pyc
+ALIH/strategies/modal_strategies/__pycache__/random_sampling.cpython-39.pyc
+ALIH/strategies/modal_strategies/__pycache__/uncertain_sampling.cpython-39.pyc
 ALIH/environment/__pycache__/config.cpython-39.pyc 
 ALIH/strategies/modal_strategies/__pycache__/modal_framework.cpython-39.pyc 
 ALIH/strategies/pyHard/__pycache__/pyhard_framework.cpython-39.pyc
