@@ -50,28 +50,33 @@ def pyhard_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cos
     X_rawAndY_raw = np.column_stack([X_raw[idx_data[idx_bag][TRAIN]], y_raw[idx_data[idx_bag][TRAIN]]])
     np.savetxt(str(Path('.') / 'strategies' / 'pyHard' / 'pyhard_files' / strategy['measure'] / 'data.csv'), X_rawAndY_raw, fmt='%i', delimiter=",")
 
-    os.system('pyhard --no-isa -c' + str(Path('.') / 'strategies' / 'pyHard' / 'pyhard_files' / strategy['measure'] / 'config.yaml'))
+    try:
+        os.system('pyhard --no-isa -c' + str(Path('.') / 'strategies' / 'pyHard' / 'pyhard_files' / strategy['measure'] / 'config.yaml'))
+    except:
+        print("PYHARD QUEBROU")
+    else:
 
-    df = pd.read_csv(Path('.') / 'strategies' / 'pyHard' / 'pyhard_files' / strategy['measure'] /'metadata.csv')
+        df = pd.read_csv(Path('.') / 'strategies' / 'pyHard' / 'pyhard_files' / strategy['measure'] /'metadata.csv')
 
-    idx = list(df.sort_values(by=strategy['sortby'], ascending=strategy['ascending'])['instances'][:cost])
+        idx = list(df.sort_values(by=strategy['sortby'], ascending=strategy['ascending'])['instances'][:cost])
 
-    X_train = X_raw[idx_data[idx_bag][TRAIN][idx]]
-    y_train = y_raw[idx_data[idx_bag][TRAIN][idx]]
+        X_train = X_raw[idx_data[idx_bag][TRAIN][idx]]
+        y_train = y_raw[idx_data[idx_bag][TRAIN][idx]]
 
-    sample_size = cost
-    learner.teach(X_train, y_train)
+        sample_size = cost
+        learner.teach(X_train, y_train)
 
-    accuracy_history.append(learner.score(X_test, y_test))
-    f1_history.append(compute_f1(learner, X_test, y_test, "weighted"))
+        accuracy_history.append(learner.score(X_test, y_test))
+        f1_history.append(compute_f1(learner, X_test, y_test, "weighted"))
 
-    end = timer()
-    time_elapsed = end - start
+        end = timer()
+        time_elapsed = end - start
 
-    return {"accuracy_history": accuracy_history,
-            "f1_history": f1_history,
-            "package": "Pyhard",
-            "time_elapsed": time_elapsed,
-            "classifier": classifier,
-            "sample_size": sample_size / len(X_raw),
-            "strategy": strategy['name']}
+        return {"accuracy_history": accuracy_history,
+                "f1_history": f1_history,
+                "package": "Pyhard",
+                "id_bag": idx_bag,
+                "time_elapsed": time_elapsed,
+                "classifier": classifier,
+                "sample_size": sample_size / len(X_raw),
+                "strategy": strategy['name']}

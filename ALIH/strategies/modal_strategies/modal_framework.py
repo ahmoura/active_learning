@@ -76,6 +76,7 @@ def modal_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cost
     return {"accuracy_history": accuracy_history,
             "f1_history": f1_history,
             "package": "modAL",
+            "id_bag": idx_bag,
             "time_elapsed": time_elapsed,
             "classifier": classifier,
             "sample_size": sample_size / len(X_raw),
