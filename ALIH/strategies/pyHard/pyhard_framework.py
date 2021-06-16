@@ -11,6 +11,8 @@ from environment.compute_f1 import compute_f1
 import pandas as pd
 from pathlib import Path
 
+from pyhard.measures import ClassificationMeasures
+
 
 def pyhard_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cost, strategy):
     from modAL.uncertainty import classifier_uncertainty
@@ -47,16 +49,36 @@ def pyhard_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cos
     #idx = np.random.choice(range(len(idx_data[idx_bag][TRAIN])), size=init_size, replace=False)
     #X_train, y_train = X_raw[idx_data[idx_bag][TRAIN][idx]], y_raw[idx_data[idx_bag][TRAIN][idx]]
 
+    path_to_bag_files = (Path('.') / 'strategies' / 'pyHard' / 'pyhard_files' / strategy['measure'] / str('bag_' + str(idx_bag)))
+
     X_rawAndY_raw = np.column_stack([X_raw[idx_data[idx_bag][TRAIN]], y_raw[idx_data[idx_bag][TRAIN]]])
-    np.savetxt(str(Path('.') / 'strategies' / 'pyHard' / 'pyhard_files' / strategy['measure'] / 'data.csv'), X_rawAndY_raw, fmt='%i', delimiter=",")
+    np.savetxt(str(path_to_bag_files / 'data.csv'), X_rawAndY_raw, fmt='%i', delimiter=",")
 
     try:
-        os.system('pyhard --no-isa -c' + str(Path('.') / 'strategies' / 'pyHard' / 'pyhard_files' / strategy['measure'] / 'config.yaml'))
+        os.system('pyhard --no-isa -c' + str(path_to_bag_files / 'config.yaml'))
     except:
         print("PYHARD QUEBROU")
     else:
 
-        df = pd.read_csv(Path('.') / 'strategies' / 'pyHard' / 'pyhard_files' / strategy['measure'] /'metadata.csv')
+        # df_final =
+
+        # df_final['target'] =
+
+        # df_final = pd.concat([pd.DataFrame(X_raw[idx_data[idx_bag][TRAIN]]), pd.DataFrame(y_raw[idx_data[idx_bag][TRAIN]])], axis=1)
+        #
+        # df_final.columns = list(range(0, len(df_final.columns)))
+
+        # data = np.column_stack([X_raw[idx_data[idx_bag][TRAIN]], y_raw[idx_data[idx_bag][TRAIN]]])
+
+        # print(df_final)
+
+        # print(type(df_final))
+
+        # m = ClassificationMeasures(df_final)
+
+        # df = m.calculate_all()
+
+        df = pd.read_csv(path_to_bag_files /'metadata.csv')
 
         idx = list(df.sort_values(by=strategy['sortby'], ascending=strategy['ascending'])['instances'][:cost])
 

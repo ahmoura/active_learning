@@ -1,44 +1,44 @@
-adjust_rotation: true
-algo_list:
-- random_forest
-datafile: ./strategies/pyHard/pyhard_files/N2/data.csv
-feat_select: true
-hpo_evals: 20
-hpo_timeout: 90
-hyper_param_optm: false
-ih_purity: 0.55
-ih_threshold: 0.4
-isa_engine: python
-max_n_features: 10
-measures_list:
-- N2
-method: mrmr
-metric: logloss
-n_folds: 2
-n_iter: 1
-parameters:
-  bagging:
-    n_jobs: -1
-    random_state: 0
-  dummy:
-    strategy: prior
-  gradient_boosting:
-    random_state: 0
-  logistic_regression:
-    random_state: 0
-  mlp:
-    random_state: 0
-  random_forest:
-    n_jobs: -1
-    random_state: 0
-  svc_linear:
-    probability: true
-    random_state: 0
-  svc_rbf:
-    probability: true
-    random_state: 0
-perf_threshold: auto
-problem: classification
-rootdir: ./strategies/pyHard/pyhard_files/N2
-var_filter: true
-var_threshold: 0
+#adjust_rotation: true
+#algo_list:
+#- random_forest
+#datafile: ./strategies/pyHard/pyhard_files/N2/data.csv
+#feat_select: true
+#hpo_evals: 20
+#hpo_timeout: 90
+#hyper_param_optm: false
+#ih_purity: 0.55
+#ih_threshold: 0.4
+#isa_engine: python
+#max_n_features: 10
+#measures_list:
+#- N2
+#method: mrmr
+#metric: logloss
+#n_folds: 2
+#n_iter: 1
+#parameters:
+#  bagging:
+#    n_jobs: -1
+#    random_state: 0
+#  dummy:
+#    strategy: prior
+#  gradient_boosting:
+#    random_state: 0
+#  logistic_regression:
+#    random_state: 0
+#  mlp:
+#    random_state: 0
+#  random_forest:
+#    n_jobs: -1
+#    random_state: 0
+#  svc_linear:
+#    probability: true
+#    random_state: 0
+#  svc_rbf:
+#    probability: true
+#    random_state: 0
+#perf_threshold: auto
+#problem: classification
+#rootdir: ./strategies/pyHard/pyhard_files/N2
+#var_filter: true
+#var_threshold: 0
