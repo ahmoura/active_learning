@@ -1,19 +1,27 @@
 from scipy.io import arff
 import pandas as pd
+import numpy as np
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 from sklearn.model_selection import StratifiedShuffleSplit
+
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
 
 def which_arff_dataset(dataset, n_splits=5):
 
     data = arff.loadarff('./datasets/' + dataset)
     data = pd.DataFrame(data[0])
 
+    # TODOS OS DATASETS SÃO DE CLASSIFICAÇÃO? Se não, o list [:-1] pode dar ruim
+    columnTransformer = ColumnTransformer([('encoder',
+                                            OneHotEncoder(),
+                                            list(data.select_dtypes(include=['object']).columns)[:-1])],
+                                          remainder='passthrough')
+
+    data = pd.DataFrame(columnTransformer.fit_transform(data))
+
     X_raw = data[data.columns[:-1]].to_numpy()
     y_raw = data[data.columns[-1]].to_numpy()
-
-    lex = OneHotEncoder(handle_unknown='ignore', sparse=False)
-    lex.fit(X_raw)
-    X_raw = lex.transform(X_raw)
 
     # pq o y sem o enconding não funciona?
     ley = LabelEncoder()
