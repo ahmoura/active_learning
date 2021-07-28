@@ -53,3 +53,5 @@ ALIH/strategies/modal_strategies/__pycache__/uncertain_sampling.cpython-39.pyc
 ALIH/environment/__pycache__/config.cpython-39.pyc 
 ALIH/strategies/modal_strategies/__pycache__/modal_framework.cpython-39.pyc 
 ALIH/strategies/pyHard/__pycache__/pyhard_framework.cpython-39.pyc
+
+labs/.ipynb_checkpoints/Column Transformer Test-checkpoint.ipynb

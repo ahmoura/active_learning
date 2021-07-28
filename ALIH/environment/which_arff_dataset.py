@@ -29,7 +29,7 @@ def which_arff_dataset(dataset, n_splits=5):
     y_raw = ley.transform(y_raw)
 
     # cross validation bags
-    data_cv = StratifiedShuffleSplit(n_splits=n_splits, train_size=0.2, random_state=0)  # n_splits
+    data_cv = StratifiedShuffleSplit(n_splits=n_splits, train_size=0.8, random_state=0)  # n_splits
     data_cv.get_n_splits(X_raw, y_raw)
 
     # extraindo ids do data_cv

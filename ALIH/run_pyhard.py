@@ -13,14 +13,10 @@ barrier = Barrier(6)
 def pyhard_thread(ds, X_raw, y_raw, idx_data, dataset_name, classifier, idx_bag, n_splits, ph_strategy, init_size, cost):
     if ('pyhard' + dataset_name + classifier + ph_strategy + str(idx_bag) + '.csv' not in list(
             os.listdir(Path('.') / 'output'))):
-        tqdm.write("Testando: " + str(ds[:-5]) + " " + str(classifier) + " " + str(idx_bag) + "/" + str(
+            tqdm.write("Testando: " + str(ds[:-5]) + " " + str(classifier) + " " + str(idx_bag) + "/" + str(
             n_splits) + " " + ph_strategy)
-        try:
             result = pyhard_framework(deepcopy(X_raw), deepcopy(y_raw), idx_data, idx_bag, classifier, init_size, cost,
                                   ph_strategy)
-        except:
-            print("PYHARD_THREAD QUEBROU PYHARD QUEBROU")
-        else:
             result['dataset'] = ds[:-5]
             result_to_file(result, dataset_name, classifier, ph_strategy, "pyhard", idx_bag)
             # CRIAR FUNCAO PARA SALVAR NO ARQUIVO PATH('.')
@@ -34,7 +30,7 @@ def pyhard_thread(ds, X_raw, y_raw, idx_data, dataset_name, classifier, idx_bag,
 def run_pyhard(datasets, n_splits = 5, init_size = 5, cost = 10):
 
     for ds in tqdm(datasets,  desc ="Dataset"):
-        X_raw, y_raw, idx_data, dataset_name = which_arff_dataset(ds)
+        X_raw, y_raw, idx_data, dataset_name = which_arff_dataset(ds, n_splits=n_splits)
         for classifier in classifiers:
             # para cada i em idx_bag ("n_splits") (1 a 5)
             for ph_strategy in pyhard_strategies_names:
