@@ -14,13 +14,9 @@ from pathlib import Path
 from math import ceil
 
 from pyhard.measures import ClassificationMeasures
-
-
-# Tira o sample do dataset (3%)
-# Roda instance hardness - USA LABEL
+from modAL.uncertainty import classifier_uncertainty
 
 def pyhard_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cost, strategy):
-    from modAL.uncertainty import classifier_uncertainty
 
     sample_size = 0  # contador de amostras utilizadas pela estratégia
     accuracy_history = []
@@ -34,12 +30,14 @@ def pyhard_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cos
                                                         train_size= ceil(len(np.unique(y_raw)) + init_size),
                                                         stratify=y_raw[idx_data[idx_bag][TRAIN]])
 
+   # print(np.unique(y_raw[idx_data[idx_bag][TRAIN]]))
+    #print(np.unique(y_train))
     sample_size = sample_size + len(X_train)
 
     learner = ActiveLearner(
-        estimator=which_classifier(classifier),  # cls,
+        estimator=which_classifier(classifier),
         query_strategy=uncertainty_sampling,
-        X_training=X_train, y_training=y_train  # AL AJUSTA O CLASSIFIER
+        X_training=X_train, y_training=y_train
     )
 
     accuracy_history.append(learner.score(X_test, y_test))
@@ -47,7 +45,7 @@ def pyhard_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cos
 
     X_pool = X_raw[idx_data[idx_bag][TRAIN]]    # Resolve o problema de reposição do loop
     y_pool = y_raw[idx_data[idx_bag][TRAIN]]    # Resolve o problema de reposição do loop
-    len_x_pool = ceil(len(X_pool)*0.03)
+    len_x_pool = int(ceil(len(X_pool)*0.03))
 
     for i in range(cost):
         try:
@@ -55,30 +53,27 @@ def pyhard_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cos
             print("Y UNIQUE: {}".format(len(np.unique(y_raw))))
             print("LEN_X_POOL: {}".format(len_x_pool))
             print("LEN DE X_POOL: {x}".format(x = len(y_pool)))
+            print("LEARNER SCORE: {x}".format(x = learner.score(X_test, y_test)))
             X_train, X_pool, y_train, y_pool = train_test_split(X_pool, y_pool, train_size=len_x_pool)
+
+            pred = learner.predict(X_train)
+            print("LEARNER SCORE: {x}".format(x = learner.score(X_pool, y_pool)))
 
             path_to_bag_files = (Path('.') / 'strategies' / 'pyHard' / 'pyhard_files' / strategy['measure'] / str(
                 'bag_' + str(idx_bag)))
 
-            X_rawAndY_raw = np.column_stack([X_train, y_train])
+            print('XTRAIN {} PRED {}'.format(len(X_train),len(pred)))
+            X_rawAndY_raw = np.column_stack([X_train, pred])
+            print(path_to_bag_files)
             np.savetxt(str(path_to_bag_files / 'data.csv'), X_rawAndY_raw, fmt='%i', delimiter=",")
 
-            os.system('pyhard --no-isa -c' + str(path_to_bag_files / 'config.yaml'))
+            os.system('pyhard --no-isa -c ' + str(path_to_bag_files / 'config.yaml'))
         except Exception as e:
             print(e)
         else:
-
-            # df_final = pd.concat([pd.DataFrame(X_raw[idx_data[idx_bag][TRAIN]]), pd.DataFrame(y_raw[idx_data[idx_bag][TRAIN]])], axis=1)
-            # df_final.columns = list(range(0, len(df_final.columns)))
-            # data = np.column_stack([X_raw[idx_data[idx_bag][TRAIN]], y_raw[idx_data[idx_bag][TRAIN]]])
-            # m = ClassificationMeasures(df_final)
-            # df = m.calculate_all()
-
-            #PEGAR RESULTADO DA F3, RANKEAR e DA O LEARN NO LEARNER COM ESSAS AMOSTRAS
-
             df = pd.read_csv(path_to_bag_files /'metadata.csv')
 
-            idx = list(df.sort_values(by=strategy['sortby'], ascending=strategy['ascending'])['instances'][:init_size])
+            idx = list(df.sort_values(by=strategy['sortby'], ascending=strategy['ascending'])['instances'][:cost]) #pega as `cost` primeiras amostras (talvez precise mudar pra algo relacionado ao init size ou criar alguma funcao nova)
             print("IDX LIST LEN : {} {} :LEN_X_POOL".format(len(list(df.sort_values(by=strategy['sortby'], ascending=strategy['ascending'])['instances'])), len_x_pool))
             print("IDX: {}".format(idx))
 

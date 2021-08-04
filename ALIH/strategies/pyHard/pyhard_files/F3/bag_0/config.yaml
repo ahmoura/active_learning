@@ -1,11 +1,12 @@
-adjust_rotation: true
+adjust_rotation: True
 algo_list:
 - random_forest
 datafile: ./strategies/pyHard/pyhard_files/F3/bag_0/data.csv
-feat_select: true
+feat_select: True
 hpo_evals: 20
 hpo_timeout: 90
-hyper_param_optm: false
+hyper_param_optm: False
+seed: ""
 ih_purity: 0.55
 ih_threshold: 0.4
 isa_engine: python

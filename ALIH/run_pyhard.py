@@ -27,7 +27,7 @@ def pyhard_thread(ds, X_raw, y_raw, idx_data, dataset_name, classifier, idx_bag,
     barrier.wait()
 
 
-def run_pyhard(datasets, n_splits = 5, init_size = 5, cost = 10):
+def run_pyhard(datasets, n_splits = 5, init_size = 50, cost = 10):
 
     for ds in tqdm(datasets,  desc ="Dataset"):
         X_raw, y_raw, idx_data, dataset_name = which_arff_dataset(ds, n_splits=n_splits)

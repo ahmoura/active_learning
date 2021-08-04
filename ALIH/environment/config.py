@@ -9,4 +9,4 @@ classifiers = ['5NN', 'C4.5', 'NB','RF']
 datasets = os.listdir('./datasets')
 #pyhard_strategies_names = ['H', 'U', 'H_U', 'LSC', 'N2', 'F3']
 
-pyhard_strategies_names = ['F3']
+pyhard_strategies_names = ['H', 'U', 'H_U', 'LSC', 'N2']
