@@ -1,0 +1,131 @@
+# paths can be relative (to the parent dir of this file) or absolute
+# paths should be constructed with (forward) slash '/', regardless of the operating system
+# e.g. 'c:/Users/user/data' (Windows) or '/Users/user/data' (Unix)
+
+# 'options.json' should be placed inside this directory 
+# This field will probably not need to be modified, you may leave it as it is
+rootdir: .
+
+# the parameter 'matildadir' is only needed if the ISA Engine is set to 'matlab'.
+# this is the directory with matilda source code (from InstanceSpace repo)
+# matildadir: ../InstanceSpace/
+
+# path to the dataset file (csv)
+# can be a relative path: ../datasets/data.csv
+datafile: data.csv
+# type of problem: either classification or regression
+problem: classification
+
+# Parameter 'seed' is used to control reproducibiity
+# For reproducible results, set it to any integer value
+# For non deterministic results, set it to the empty string: ""
+seed: 0
+
+# ISA Engine
+# One of: 'python', 'matlab' or 'matlab_compiled'
+isa_engine: python
+
+# name of the class labels column in the dataset
+# leave this line commented out if using the last column as label column
+# labels_col: class
+
+# number of cross-validation folds to evaluate algorithm performance
+# suggestion: using 5 folds when hyper parameter optimization is enabled, and 10 otherwise
+n_folds: 5
+# number of times the cross-validation is repeated. Instance metric is the mean over the iterations
+# suggestion: using 1 or 2 iters when hyper parameter optimization is enabled, and 10 otherwise
+n_iter: 1
+
+# score metric used to evaluate instance performance
+# either 'logloss' or 'brier'
+metric: logloss
+# threshold below which an instance is considered good
+# it should be either a float or 'auto' (recommended)
+perf_threshold: auto
+
+
+# Feature selection
+feat_select: True
+# The maximum number of features selected at the end
+max_n_features: 10
+# scoring method
+method: mrmr
+# naive variance filter; use it carefully!!
+# recommended: just remove features with var=0 (var_threshold=0)
+var_filter: True
+var_threshold: 0
+
+# Hyper parameter optimization (HPO)
+hyper_param_optm: True
+# Maximum number of evaluations
+hpo_evals: 20
+# Timeout for each fold (in seconds)
+hpo_timeout: 90
+
+
+# ISA parameters
+
+# Threshold below which an instance is considered good
+# It should be either a float or 'auto' (recommended)
+# Works only for engine 'python'
+perf_threshold: auto
+# Adjust IS orientation, such that hard instances are placed in the upper left corner
+adjust_rotation: True
+
+# Instance hardness footprint parameters
+# easy instance if IH <= threshold
+ih_threshold: 0.4
+# ISA purity parameter (no need to change)
+ih_purity: 0.55
+
+
+# which measures to calculate
+measures_list:
+    - kDN
+    - DCP
+    - TD_P
+    - TD_U
+    - CL
+    - CLD
+    # - MV
+    # - CB
+    - N1
+    - N2
+    - LSC
+    - LSR
+    - Harmfulness
+    - Usefulness
+    - F1
+    # - F2
+    # - F3
+
+# which algorithms (classifiers) to use
+algo_list:
+    - svc_linear
+    - svc_rbf
+    - random_forest
+    - gradient_boosting
+    - bagging
+    # - gaussian_nb
+    - logistic_regression
+    - mlp
+    # - dummy
+
+# fixed parameters for the classifiers
+# parameter 'random_state' controls the reproducibility
+# for different results, set it to None
+parameters:
+    random_forest:
+        n_jobs: -1
+        
+    bagging:
+        n_jobs: -1
+        
+    # mlp:
+    #    # "!!python/tuple" hack to pass a tuple (2,)
+    #    hidden_layer_sizes: !!python/tuple [2,]
+    #    max_iter: 1000
+
+    # See: https://scikit-learn.org/0.16/modules/generated/sklearn.dummy.DummyClassifier.html
+    dummy:
+        strategy: prior

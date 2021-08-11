@@ -1,0 +1,3 @@
+[console_scripts]
+pyhard = pyhard.cli:cli
+

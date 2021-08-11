@@ -7,6 +7,5 @@ modal_strategies = {"Uncertain Sampling": "uncertain_sampling", "Random Sampling
 parameters = "(deepcopy(X_raw), deepcopy(y_raw), idx_data, idx_bag, classifier, init_size, cost)"
 classifiers = ['5NN', 'C4.5', 'NB','RF']
 datasets = os.listdir('./datasets')
-#pyhard_strategies_names = ['H', 'U', 'H_U', 'LSC', 'N2', 'F3']
-
-pyhard_strategies_names = ['H', 'U', 'H_U', 'LSC', 'N2']
+pyhard_strategies_names = ['H', 'U', 'H_U', 'LSC', 'N2', 'N1']
+pyhard_unlabeled_strategies = ['F3']

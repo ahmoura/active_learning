@@ -23,11 +23,11 @@ def pyhard_thread(ds, X_raw, y_raw, idx_data, dataset_name, classifier, idx_bag,
             tqdm.write("Passou: " + str(ds[:-5]) + " " + str(classifier) + " " + str(idx_bag) + "/" + str(
                 n_splits) + " " + ph_strategy)
     else:
-        print('modal' + dataset_name + classifier + ph_strategy + str(idx_bag) + '.csv already exists!')
+        print('pyhard' + dataset_name + classifier + ph_strategy + str(idx_bag) + '.csv already exists!')
     barrier.wait()
 
 
-def run_pyhard(datasets, n_splits = 5, init_size = 50, cost = 10):
+def run_pyhard(datasets, n_splits = 5, init_size = 50, cost = 18):
 
     for ds in tqdm(datasets,  desc ="Dataset"):
         X_raw, y_raw, idx_data, dataset_name = which_arff_dataset(ds, n_splits=n_splits)

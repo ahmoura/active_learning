@@ -11,7 +11,7 @@ from modAL.uncertainty import uncertainty_sampling
 from environment.compute_f1 import compute_f1
 import pandas as pd
 from pathlib import Path
-from math import ceil
+from math import floor
 
 from pyhard.measures import ClassificationMeasures
 from modAL.uncertainty import classifier_uncertainty
@@ -27,8 +27,9 @@ def pyhard_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cos
 
     X_train, X_test, y_train, y_test = train_test_split(X_raw[idx_data[idx_bag][TRAIN]],
                                                         y_raw[idx_data[idx_bag][TRAIN]],
-                                                        train_size= ceil(len(np.unique(y_raw)) + init_size),
-                                                        stratify=y_raw[idx_data[idx_bag][TRAIN]])
+                                                        train_size=floor(len(X_raw[idx_data[idx_bag][TRAIN]]) * 0.10),
+                                                        stratify=y_raw[idx_data[idx_bag][TRAIN]],
+                                                        random_state=1)
 
    # print(np.unique(y_raw[idx_data[idx_bag][TRAIN]]))
     #print(np.unique(y_train))
@@ -45,7 +46,7 @@ def pyhard_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cos
 
     X_pool = X_raw[idx_data[idx_bag][TRAIN]]    # Resolve o problema de reposição do loop
     y_pool = y_raw[idx_data[idx_bag][TRAIN]]    # Resolve o problema de reposição do loop
-    len_x_pool = int(ceil(len(X_pool)*0.03))
+    len_x_pool = int(floor(len(X_raw[idx_data[idx_bag][TRAIN]])*0.05))
 
     for i in range(cost):
         try:
@@ -70,6 +71,7 @@ def pyhard_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cos
             os.system('pyhard --no-isa -c ' + str(path_to_bag_files / 'config.yaml'))
         except Exception as e:
             print(e)
+
         else:
             df = pd.read_csv(path_to_bag_files /'metadata.csv')
 
@@ -77,10 +79,10 @@ def pyhard_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cos
             print("IDX LIST LEN : {} {} :LEN_X_POOL".format(len(list(df.sort_values(by=strategy['sortby'], ascending=strategy['ascending'])['instances'])), len_x_pool))
             print("IDX: {}".format(idx))
 
-            X_train =X_train[idx] # ORACULO RECEBE
+            X_train = X_train[idx] # ORACULO RECEBE
             y_train = y_train[idx] # ORACULO ROTULOU
 
-            sample_size = sample_size + init_size
+            sample_size = sample_size + len_x_pool
             learner.teach(X_train, y_train)
 
             accuracy_history.append(learner.score(X_test, y_test))
@@ -95,5 +97,5 @@ def pyhard_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cos
             "id_bag": idx_bag,
             "time_elapsed": time_elapsed,
             "classifier": classifier,
-            "sample_size": sample_size / len(X_raw),
+            "sample_size": sample_size / len(X_raw[idx_data[idx_bag][TRAIN]]),
             "strategy": strategy['name']}

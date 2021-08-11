@@ -25,7 +25,7 @@ def modal_thread(ds, X_raw, y_raw, idx_data, dataset_name, classifier, idx_bag, 
     barrier.wait()
 
 
-def run_modal(datasets, n_splits = 5, init_size = 50, cost = 10):
+def run_modal(datasets, n_splits = 5, init_size = 50, cost = 18):
 
     for ds in tqdm(datasets,  desc ="Dataset"):
         X_raw, y_raw, idx_data, dataset_name = which_arff_dataset(ds, n_splits)

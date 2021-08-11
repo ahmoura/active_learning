@@ -2,7 +2,6 @@ modAL
 Sklearn
 Pandas
 Numpy
-pyHard
 openML
 matplotlib
 seaborn
