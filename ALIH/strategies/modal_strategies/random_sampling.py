@@ -15,7 +15,7 @@ def random_sampling(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cost
     cls = which_classifier(classifier)
     cls.fit(X_train, y_train)
 
-    accuracy_history.append(cls.score(X_test, y_test))
-    f1_history.append(compute_f1(cls, X_test, y_test, "weighted"))
+    accuracy_history.append(cls.score(X_raw[idx_data[idx_bag][TEST]], y_raw[idx_data[idx_bag][TEST]]))
+    f1_history.append(compute_f1(cls, X_raw[idx_data[idx_bag][TEST]], y_raw[idx_data[idx_bag][TEST]], "weighted"))
 
     return sample_size, accuracy_history, f1_history

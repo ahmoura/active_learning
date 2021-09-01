@@ -66,7 +66,7 @@ def modal_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cost
             learner = None
 
     if (strategy[1] != "random_sampling"):
-        accuracy_history.append(learner.score(X_pool, y_pool))
+        accuracy_history.append(learner.score(X_raw[idx_data[idx_bag][TEST]], y_raw[idx_data[idx_bag][TEST]]))
         f1_history.append(compute_f1(learner, X_pool, y_pool, "weighted"))
 
     for i in range(cost):

@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 def which_pyhard_measure(measure='LSC'):
     import yaml
     with open(Path('.') / 'strategies' / 'pyHard' / 'config-template.yaml') as file:

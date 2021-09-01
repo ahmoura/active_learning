@@ -31,8 +31,6 @@ def pyhard_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cos
                                                         stratify=y_raw[idx_data[idx_bag][TRAIN]],
                                                         random_state=1)
 
-   # print(np.unique(y_raw[idx_data[idx_bag][TRAIN]]))
-    #print(np.unique(y_train))
     sample_size = sample_size + len(X_train)
 
     learner = ActiveLearner(
@@ -41,7 +39,7 @@ def pyhard_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cos
         X_training=X_train, y_training=y_train
     )
 
-    accuracy_history.append(learner.score(X_test, y_test))
+    accuracy_history.append(learner.score(X_raw[idx_data[idx_bag][TEST]], y_raw[idx_data[idx_bag][TEST]]))
     f1_history.append(compute_f1(learner, X_test, y_test, "weighted"))
 
     X_pool = X_raw[idx_data[idx_bag][TRAIN]]    # Resolve o problema de reposição do loop
@@ -50,22 +48,14 @@ def pyhard_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cos
 
     for i in range(cost):
         try:
-            print("COST: {x}".format(x=i))
-            print("Y UNIQUE: {}".format(len(np.unique(y_raw))))
-            print("LEN_X_POOL: {}".format(len_x_pool))
-            print("LEN DE X_POOL: {x}".format(x = len(y_pool)))
-            print("LEARNER SCORE: {x}".format(x = learner.score(X_test, y_test)))
             X_train, X_pool, y_train, y_pool = train_test_split(X_pool, y_pool, train_size=len_x_pool)
 
             pred = learner.predict(X_train)
-            print("LEARNER SCORE: {x}".format(x = learner.score(X_pool, y_pool)))
 
             path_to_bag_files = (Path('.') / 'strategies' / 'pyHard' / 'pyhard_files' / strategy['measure'] / str(
                 'bag_' + str(idx_bag)))
 
-            print('XTRAIN {} PRED {}'.format(len(X_train),len(pred)))
             X_rawAndY_raw = np.column_stack([X_train, pred])
-            print(path_to_bag_files)
             np.savetxt(str(path_to_bag_files / 'data.csv'), X_rawAndY_raw, fmt='%i', delimiter=",")
 
             os.system('pyhard --no-isa -c ' + str(path_to_bag_files / 'config.yaml'))
@@ -76,8 +66,6 @@ def pyhard_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cos
             df = pd.read_csv(path_to_bag_files /'metadata.csv')
 
             idx = list(df.sort_values(by=strategy['sortby'], ascending=strategy['ascending'])['instances'][:cost]) #pega as `cost` primeiras amostras (talvez precise mudar pra algo relacionado ao init size ou criar alguma funcao nova)
-            print("IDX LIST LEN : {} {} :LEN_X_POOL".format(len(list(df.sort_values(by=strategy['sortby'], ascending=strategy['ascending'])['instances'])), len_x_pool))
-            print("IDX: {}".format(idx))
 
             X_train = X_train[idx] # ORACULO RECEBE
             y_train = y_train[idx] # ORACULO ROTULOU
@@ -85,7 +73,7 @@ def pyhard_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cos
             sample_size = sample_size + len_x_pool
             learner.teach(X_train, y_train)
 
-            accuracy_history.append(learner.score(X_test, y_test))
+            accuracy_history.append(learner.score(X_raw[idx_data[idx_bag][TEST]], y_raw[idx_data[idx_bag][TEST]]))
             f1_history.append(compute_f1(learner, X_test, y_test, "weighted"))
 
     end = timer()
