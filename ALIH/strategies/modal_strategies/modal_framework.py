@@ -12,7 +12,7 @@ from strategies.modal_strategies.random_sampling import random_sampling
 from strategies.modal_strategies.query_by_committee import query_by_committee
 from strategies.modal_strategies.exp_error_reduction import exp_error_reduction
 from strategies.modal_strategies.exp_model_change import exp_model_change
-from math import ceil
+from math import floor, ceil
 
 
 def modal_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cost, strategy):
@@ -29,7 +29,7 @@ def modal_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cost
 
             X_train, X_pool, y_train, y_pool = train_test_split(X_raw[idx_data[idx_bag][TRAIN]],
                                                                 y_raw[idx_data[idx_bag][TRAIN]],
-                                                                train_size=ceil(len(X_raw) * 0.10),
+                                                                train_size=floor(len(X_raw[idx_data[idx_bag][TRAIN]]) * 0.10),
                                                                 stratify=y_raw[idx_data[idx_bag][TRAIN]],
                                                                 random_state=1)
             sample_size = sample_size + len(X_train)
@@ -49,7 +49,7 @@ def modal_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cost
     else:
         X_train, X_pool, y_train, y_pool = train_test_split(X_raw[idx_data[idx_bag][TRAIN]],
                                                             y_raw[idx_data[idx_bag][TRAIN]],
-                                                            train_size=ceil(len(X_raw) * 0.10),
+                                                            train_size=floor(len(X_raw[idx_data[idx_bag][TRAIN]]) * 0.10),
                                                             stratify=y_raw[idx_data[idx_bag][TRAIN]],
                                                             random_state=1)
 
