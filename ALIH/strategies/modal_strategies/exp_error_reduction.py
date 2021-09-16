@@ -1,4 +1,5 @@
 from modAL.expected_error import expected_error_reduction
+from environment.config import *
 from environment.compute_f1 import compute_f1
 
 def exp_error_reduction(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cost, strategy, sample_size,
