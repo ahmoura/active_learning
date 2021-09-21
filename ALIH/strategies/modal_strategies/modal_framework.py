@@ -63,11 +63,12 @@ def modal_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cost
                 X_training=X_train, y_training=y_train  # AL AJUSTA O CLASSIFIER
             )
         else:
-            learner = None
+            learner = which_classifier(classifier)
+            learner.fit(X_train, y_train)
 
-    if (strategy[1] != "random_sampling"):
-        accuracy_history.append(learner.score(X_raw[idx_data[idx_bag][TEST]], y_raw[idx_data[idx_bag][TEST]]))
-        f1_history.append(compute_f1(learner, X_pool, y_pool, "weighted"))
+    # if (strategy[1] != "random_sampling"):
+    accuracy_history.append(learner.score(X_raw[idx_data[idx_bag][TEST]], y_raw[idx_data[idx_bag][TEST]]))
+    f1_history.append(compute_f1(learner, X_pool, y_pool, "weighted"))
 
     for i in range(cost):
         init_size = int(ceil(len(X_raw) * 0.05))
