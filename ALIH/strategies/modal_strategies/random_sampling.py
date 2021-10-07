@@ -13,8 +13,7 @@ def random_sampling(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cost
                                                         stratify=y_raw[idx_data[idx_bag][TRAIN]])
     sample_size = sample_size + len(X_train)
 
-    learner = which_classifier(classifier) # essa linha eh necessaria dado que o framework ja setou o classificador?
-    learner.fit(X_train, y_train)
+    learner.teach(X_train, y_train)
 
     accuracy_history.append(learner.score(X_raw[idx_data[idx_bag][TEST]], y_raw[idx_data[idx_bag][TEST]]))
     f1_history.append(compute_f1(learner, X_raw[idx_data[idx_bag][TEST]], y_raw[idx_data[idx_bag][TEST]], "weighted"))
