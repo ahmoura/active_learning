@@ -18,7 +18,7 @@ def baseline_thread(ds, X_raw, y_raw, idx_data, dataset_name, classifier, idx_ba
             "Testando: " + str(ds[:-5]) + " " + str(classifier) + " " + str(idx_bag + 1) + "/" + str(n_splits))
         result = baseline_framework(X_raw, y_raw, idx_data, idx_bag, classifier)
         result['dataset'] = ds[:-5]
-        result_to_file(result, dataset_name, classifier, "", "baseline", idx_bag)
+        result_to_file(result, dataset_name, classifier, "baseline", "baseline", idx_bag)
         tqdm.write(
             "Passou: " + str(ds[:-5]) + " " + str(classifier) + " " + str(idx_bag + 1) + "/" + str(n_splits))
     else:
@@ -39,3 +39,4 @@ def run_baseline(datasets, n_splits=5):
             barrier.wait()
             for thr in thr_list:
                 thr.join()
+

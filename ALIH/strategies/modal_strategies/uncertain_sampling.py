@@ -13,7 +13,7 @@ def uncertain_sampling(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, c
         # print("IF", learner.score(X_test, y_test))
         sample_size = sample_size + len(X_train)
         learner.teach(X_train, y_train)
-    accuracy_history.append(learner.score(X_test, y_test))
-    f1_history.append(compute_f1(learner, X_test, y_test, "weighted"))
+    accuracy_history.append(learner.score(X_raw[idx_data[idx_bag][TEST]], y_raw[idx_data[idx_bag][TEST]]))
+    f1_history.append(compute_f1(learner, X_raw[idx_data[idx_bag][TEST]], y_raw[idx_data[idx_bag][TEST]], "weighted"))
 
     return sample_size, accuracy_history, f1_history

@@ -13,7 +13,6 @@ def baseline_framework(X_raw, y_raw, idx_data, idx_bag, classifier):
 
     X_train, X_test, y_train, y_test = train_test_split(X_raw[idx_data[idx_bag][TRAIN]],
                                                         y_raw[idx_data[idx_bag][TRAIN]],
-                                                        train_size=0.75,
                                                         stratify=y_raw[idx_data[idx_bag][TRAIN]])
 
     cls = which_classifier(classifier)

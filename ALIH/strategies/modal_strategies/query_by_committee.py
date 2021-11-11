@@ -1,4 +1,5 @@
 import numpy as np
+from environment.config import *
 from environment.compute_f1 import compute_f1
 
 def query_by_committee(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cost, strategy, sample_size,
@@ -15,7 +16,7 @@ def query_by_committee(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, c
     X_pool = np.delete(X_pool, query_idx, axis=0)
     y_pool = np.delete(y_pool, query_idx)
 
-    accuracy_history.append(committee.score(X_pool, y_pool))
-    f1_history.append(compute_f1(committee, X_pool, y_pool, "weighted"))
+    accuracy_history.append(committee.score(X_raw[idx_data[idx_bag][TEST]], y_raw[idx_data[idx_bag][TEST]]))
+    f1_history.append(compute_f1(committee, X_raw[idx_data[idx_bag][TEST]], y_raw[idx_data[idx_bag][TEST]], "weighted"))
 
     return sample_size, accuracy_history, f1_history
