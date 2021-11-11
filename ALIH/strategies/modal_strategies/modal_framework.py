@@ -56,15 +56,11 @@ def modal_framework(X_raw, y_raw, idx_data, idx_bag, classifier, init_size, cost
         sample_size = sample_size + len(X_train)
         committee = None
 
-        if strategy[1] != "random_sampling":
-            learner = ActiveLearner(
-                estimator=which_classifier(classifier),  # cls,
-                query_strategy=uncertainty_sampling,
-                X_training=X_train, y_training=y_train  # AL AJUSTA O CLASSIFIER
-            )
-        else:
-            learner = which_classifier(classifier)
-            learner.fit(X_train, y_train)
+        learner = ActiveLearner(
+            estimator=which_classifier(classifier),  # cls,
+            query_strategy=uncertainty_sampling,
+            X_training=X_train, y_training=y_train
+        )
 
     # if (strategy[1] != "random_sampling"):
     accuracy_history.append(learner.score(X_raw[idx_data[idx_bag][TEST]], y_raw[idx_data[idx_bag][TEST]]))
