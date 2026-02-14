@@ -22,7 +22,7 @@ setup(
         'PyYAML>=5.3',
         'scipy>=1.4.1',
         'panel==0.10.3',
-        'bokeh==2.2.3',
+        'bokeh==3.8.2',
         'holoviews>=1.14.2',
         'matplotlib>=3.2.2',
         'plotting>=0.0.7',
